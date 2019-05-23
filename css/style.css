@@ -19,6 +19,12 @@
       flex-direction: column;
   -ms-flex-align: center;
       align-items: center;
+  position: relative;
+}
+
+.column-container .column .btn-delete {
+  position: absolute;
+  right: 0;
 }
 
 .column-container .column .column-card-list {
@@ -38,6 +44,13 @@
   margin: 10px;
   padding: 15px;
   list-style-type: none;
+  position: relative;
+}
+
+.column-container .column .card .delete-card {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .board .column-name.error {

@@ -7,8 +7,17 @@ document.addEventListener('DOMContentLoaded', function() {
             str += chars[Math.floor(Math.random() * chars.length)];
         }
         return str;
-    } 
+    }
 
+
+    function initSortable(id) {
+        var el = document.getElementById(id);
+        var sortable = Sortable.create(el, {
+          group: 'kanban',
+          sort: true
+        });
+      }
+    
     class KanbanManager {
 
         constructor(selector) {
@@ -77,12 +86,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button class="btn-delete">X</button>
                     <button class="add-card">Add a card</button>
                 </div>
-            `;       
+            `; 
+            initSortable(this.id);     
         }
     }
 
     class Card {
-        constructor(name,id, table) {
+        constructor(name,id,table) {
             this.name = name
             this.id = id 
             this.table = table
@@ -91,7 +101,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         addCard() {
             this.table.innerHTML += `
-            <li id="${this.id}" class="card">${this.name}</li>
+            <li id="${this.id}" class="card">
+                ${this.name}
+                <button class="delete-card btn-delete" id="delete-card">X</button>
+            </li>
             `;
         }
 
@@ -99,5 +112,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     const app = new KanbanManager(document.querySelector('#app'));
-    const asd = new Column('To Do', randomString());
+    const toDo = new Column('To Do', randomString());
+    const doing = new Column('Doing', randomString());
+    const done = new Column('Done', randomString());
+
+    const newTask1 = new Card('Nauk React', randomString(), document.getElementById(toDo.id));
+    const newTask2 = new Card('Nauka JS', randomString(), document.getElementById(doing.id));
+    const newTask3 = new Card('Nauka HTML', randomString(), document.getElementById(done.id));
+
 });
