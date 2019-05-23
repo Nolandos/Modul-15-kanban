@@ -9,14 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return str;
     }
 
-
-    function initSortable(id) {
-        var el = document.getElementById(id);
-        var sortable = Sortable.create(el, {
-          group: 'kanban',
-          sort: true
-        });
-      }
     
     class KanbanManager {
 
@@ -51,7 +43,13 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('.column-container').addEventListener('click', (e) => {
                 if(e.target.classList.contains('add-card')){                   
                     let table = e.target.parentElement.querySelector('.column-card-list');
-                    const card = new Card('Nowe Zadanie', randomString(), table);
+                    let nameCard = prompt('Podaj nazwę zadania');
+                    if (nameCard != null && nameCard != '') {
+                        const card = new Card(nameCard, randomString(), table);
+                      } else {
+                          alert('Nie podałeś nazwy!');
+                      }
+                    
                 }
             });
 
@@ -75,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.name = name 
             this.id = id
             this.addColumn()
-            
+            this.addSort()
         }
 
         addColumn() {
@@ -86,8 +84,23 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button class="btn-delete">X</button>
                     <button class="add-card">Add a card</button>
                 </div>
-            `; 
-            initSortable(this.id);     
+            `;                       
+        }
+
+        addSort() {
+            let columns = document.querySelectorAll('.column-card-list');
+            console.log(columns);
+            for(let i = 0; i<columns.length; i++) {
+                this.initSortable(columns[i].id);
+            }
+        }
+
+        initSortable(id) {
+            var el = document.getElementById(id);
+            var sortable = Sortable.create(el, {
+              group: 'kanban',
+              sort: true
+            });
         }
     }
 
@@ -112,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     const app = new KanbanManager(document.querySelector('#app'));
+
     const toDo = new Column('To Do', randomString());
     const doing = new Column('Doing', randomString());
     const done = new Column('Done', randomString());
@@ -119,5 +133,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const newTask1 = new Card('Nauk React', randomString(), document.getElementById(toDo.id));
     const newTask2 = new Card('Nauka JS', randomString(), document.getElementById(doing.id));
     const newTask3 = new Card('Nauka HTML', randomString(), document.getElementById(done.id));
-
+    
+    /*
+    initSortable(toDo.id);
+    initSortable(doing.id);
+    */
 });
