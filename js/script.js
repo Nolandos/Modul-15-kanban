@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     
+    /*OUR GLOBAL FUNCTION*/ 
     function randomString() {
         var chars = '0123456789abcdefghiklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXTZ';
         var str = '';
@@ -9,12 +10,22 @@ document.addEventListener('DOMContentLoaded', function() {
         return str;
     }
 
-    
+    function generateTemplate(name, data, basicElement) {
+        var template = document.getElementById(name).innerHTML;
+        var element = basicElement;
+        
+        Mustache.parse(template);
+        element.innerHTML += Mustache.render(template, data);
+      
+        return element;
+      }
+
+    /*MAIN CLASS FOR APP, OUR BOARD*/
     class KanbanManager {
 
         constructor(selector) {
             this.selector = selector
-            this.render()
+            generateTemplate('board-template', null, this.selector);
             this.addListeners()
         }
 
@@ -48,48 +59,25 @@ document.addEventListener('DOMContentLoaded', function() {
                         const card = new Card(nameCard, randomString(), table);
                       } else {
                           alert('Nie podałeś nazwy!');
-                      }
-                    
+                      }                    
                 }
             });
 
-        }
-
-        render() {
-            this.selector.innerHTML = `            
-            <div id="board" class="board">
-                <h1>Kanban board</h1>
-                    <form>
-                        <input id="column-name" class="column-name" type="text" placeholder="Nazwa Kolumny">
-                        <button class="create-column">Add a column</button>
-                    </form>
-                <div class="column-container"></div>
-            </div>`;
-        }       
+        }    
     }
 
+    /*CLASS FOR CONSTRUCT NEW COLUMN*/
     class Column {
         constructor(name, id) {
             this.name = name 
             this.id = id
-            this.addColumn()
+            generateTemplate('column-template', { name: this.name, id: this.id},  document.querySelector('.column-container'));
             this.addSort()
         }
 
-        addColumn() {
-            document.querySelector('.column-container').innerHTML += `
-                <div class="column">
-                    <h2 class="column-title">${this.name}</h2>
-                    <ul id=${this.id} class="column-card-list"></ul>
-                    <button class="btn-delete">X</button>
-                    <button class="add-card">Add a card</button>
-                </div>
-            `;                       
-        }
-
+        /*FUNCTION FOR ADD SORTABLE PLUGIN*/ 
         addSort() {
             let columns = document.querySelectorAll('.column-card-list');
-            console.log(columns);
             for(let i = 0; i<columns.length; i++) {
                 this.initSortable(columns[i].id);
             }
@@ -104,23 +92,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    /*CLASS FOR CONSTRUCT NEW CARD*/
     class Card {
         constructor(name,id,table) {
             this.name = name
             this.id = id 
             this.table = table
-            this.addCard()
+            generateTemplate('card-template', { name: this.name, id: this.id},  this.table);
         }
-
-        addCard() {
-            this.table.innerHTML += `
-            <li id="${this.id}" class="card">
-                ${this.name}
-                <button class="delete-card btn-delete" id="delete-card">X</button>
-            </li>
-            `;
-        }
-
     }
 
 
@@ -134,8 +113,4 @@ document.addEventListener('DOMContentLoaded', function() {
     const newTask2 = new Card('Nauka JS', randomString(), document.getElementById(doing.id));
     const newTask3 = new Card('Nauka HTML', randomString(), document.getElementById(done.id));
     
-    /*
-    initSortable(toDo.id);
-    initSortable(doing.id);
-    */
 });

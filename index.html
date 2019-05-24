@@ -6,7 +6,35 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div id="app" class="app"></div>
+  <div id="app" class="app"></div>
+
+  <!--TEMPLATES MUSTACHES-->
+  <script id="board-template" type="x-tmpl-mustache">
+    <div id="board" class="board">
+      <h1>Kanban board</h1>
+          <form>
+              <input id="column-name" class="column-name" type="text" placeholder="Nazwa Kolumny">
+              <button class="create-column">Add a column</button>
+          </form>
+      <div class="column-container"></div>
+  </div>
+</script>
+
+  <script id="column-template" type="x-tmpl-mustache">
+    <div class="column">
+      <h2 class="column-title">{{name}}</h2>
+      <ul id={{id}} class="column-card-list"></ul>
+      <button class="btn-delete">X</button>
+      <button class="add-card">Add a card</button>
+  </div>
+</script>
+
+<script id="card-template" type="x-tmpl-mustache">
+  <li id="{{this.id}}" class="card">
+    {{name}}
+    <button class="delete-card btn-delete" id="delete-card">X</button>
+  </li>
+</script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.min.js"></script>
