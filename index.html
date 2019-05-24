@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Kanban board</title>
+  <link rel="stylesheet" href="vendor/css/fontello.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -11,30 +12,33 @@
   <!--TEMPLATES MUSTACHES-->
   <script id="board-template" type="x-tmpl-mustache">
     <div id="board" class="board">
-      <h1>Kanban board</h1>
-          <form>
+      <div class="wrapper">
+        <h1 class="title">Kanban board</h1>
+          <form class="add-form">
               <input id="column-name" class="column-name" type="text" placeholder="Nazwa Kolumny">
-              <button class="create-column">Add a column</button>
+              <button class="create-column icon-doc-text ico"></button>
           </form>
-      <div class="column-container"></div>
-  </div>
-</script>
+      </div>
+        <div class="column-container"></div>
+    </div>
+  </script>
 
   <script id="column-template" type="x-tmpl-mustache">
-    <div class="column">
+    <div class="column" id="column">
       <h2 class="column-title">{{name}}</h2>
       <ul id={{id}} class="column-card-list"></ul>
-      <button class="btn-delete">X</button>
-      <button class="add-card">Add a card</button>
-  </div>
-</script>
+      <button class="btn-delete ico icon-trash-empty"></button>
+      <button class="add-card ico icon-pencil"></button>
+    </div>
+  </script>
 
-<script id="card-template" type="x-tmpl-mustache">
-  <li id="{{this.id}}" class="card">
-    {{name}}
-    <button class="delete-card btn-delete" id="delete-card">X</button>
-  </li>
-</script>
+  <script id="card-template" type="x-tmpl-mustache">
+    <li id="{{id}}" class="card">
+      <div class="belt" id="belt"></div>
+      <p class="description">{{name}}</p>
+      <button class="delete-card btn-delete ico icon-trash-empty" id="delete-card"></button>
+    </li>
+  </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.min.js"></script>
