@@ -100,6 +100,31 @@ body {
   color: #595959;
 }
 
+.column-container .column .edit-column-name {
+  position: absolute;
+  right: 55px;
+  top: 10px;
+  background-color: #9366ab;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  border: none;
+  color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+  outline: none;
+}
+
+.column-container .column .edit-column-name:hover {
+  color: #595959;
+}
+
 .column-container .column .column-card-list {
   display: -ms-flexbox;
   display: flex;
@@ -171,9 +196,27 @@ body {
   font-size: 1.2em;
   cursor: pointer;
   height: 25px;
+  outline: none;
 }
 
 .column-container .column .card .delete-card:hover {
+  color: #595959;
+}
+
+.column-container .column .card .edit-card-name {
+  position: absolute;
+  right: 30px;
+  top: 0;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+  height: 25px;
+  outline: none;
+}
+
+.column-container .column .card .edit-card-name:hover {
   color: #595959;
 }
 

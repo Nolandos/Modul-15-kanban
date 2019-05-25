@@ -23,6 +23,12 @@
       "css": "trash-empty",
       "code": 59393,
       "src": "fontawesome"
+    },
+    {
+      "uid": "bd517dbd6ccbc464f6d80efca97abb7d",
+      "css": "doc-add",
+      "code": 59394,
+      "src": "typicons"
     }
   ]
 }

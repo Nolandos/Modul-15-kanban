@@ -85,6 +85,28 @@ body {
                 color: #595959;
             }
         }
+
+        .edit-column-name {
+            position: absolute;
+            right: 55px;
+            top: 10px;
+            background-color: #9366ab;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+            outline: none;
+
+            &:hover {
+                color: #595959;
+            }
+        }
         
         .column-card-list {
             display: flex;
@@ -150,6 +172,24 @@ body {
                 font-size: 1.2em;
                 cursor: pointer;
                 height: 25px;
+                outline: none;
+
+                &:hover {
+                    color: #595959;
+                }
+            }
+
+            .edit-card-name {
+                position: absolute;
+                right: 30px;
+                top: 0;
+                background-color: transparent;
+                border: none;
+                color: #fff;
+                font-size: 1.2em;
+                cursor: pointer;
+                height: 25px;
+                outline: none;
 
                 &:hover {
                     color: #595959;

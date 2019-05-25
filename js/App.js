@@ -1,12 +1,4 @@
- /*OUR GLOBAL FUNCTION*/ 
- function randomString() {
-    var chars = '0123456789abcdefghiklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXTZ';
-    var str = '';
-    for (var i = 0; i < 10; i++) {
-        str += chars[Math.floor(Math.random() * chars.length)];
-    }
-    return str;
-}
+ /*GLOBAL FUNCTIONS*/ 
 
 function generateTemplate(name, data, basicElement) {
     var template = document.getElementById(name).innerHTML;
@@ -18,15 +10,38 @@ function generateTemplate(name, data, basicElement) {
     return element;
   }
 
+    var baseUrl = 'https://kodilla.com/pl/bootcamp-api';
+    var prefix = "https://cors-anywhere.herokuapp.com/";
+    var myHeaders = {
+        'X-Client-Id': '4018',
+        'X-Auth-Token': '44ff47e0eb798038805be6d0ef8ad1f1'
+    };
 
-    /*CREATE BASIC BOARD, COLUMNS, CARDS*/
+    console.log(myHeaders);
+
+    /*DOWNLOADS DATA FROM REST API*/
+    fetch(prefix + baseUrl + '/board', { headers: myHeaders})
+        .then(function(resp) {
+        return resp.json();
+    })
+    .then(function(resp) {
+        console.log(resp.columns);
+        setupColumns(resp.columns);
+    });
+
+    function setupColumns(columns) {
+        columns.forEach(function(column) {
+            let col = new Column(column.name, column.id);
+            setupCards(col, column.cards);
+        });
+    }
+
+    function setupCards(col, cards) {
+        cards.forEach(function (card) {
+        let cardObj = new Card(card.name, card.id, document.getElementById(col.id));
+        });
+    }
+
+    /*CREATE BASIC BOARD*/
     const app = new KanbanManager(document.querySelector('#app'));
-
-    const toDo = new Column('To Do', randomString());
-    const doing = new Column('Doing', randomString());
-    const done = new Column('Done', randomString());
-
-    const newTask1 = new Card('Nauk React', randomString(), document.getElementById(toDo.id));
-    const newTask2 = new Card('Nauka JS', randomString(), document.getElementById(doing.id));
-    const newTask3 = new Card('Nauka HTML', randomString(), document.getElementById(done.id));
-    
+   
