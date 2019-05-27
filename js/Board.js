@@ -4,8 +4,7 @@
     constructor(selector) {
         this.selector = selector
         generateTemplate('board-template', null, this.selector);
-        this.addListeners()
-        
+        this.addListeners()    
     }
 
     addListeners() {
@@ -37,13 +36,14 @@
         });
 
         const columnContainer = document.querySelector('.column-container');
-        
-        /*FUNCTION FOR DRAG AND DROP CARS*/
-        columnContainer.addEventListener('drop', (e) => {
-            
+
+        /*FUCNTION FOR DRAG AND DROP CARDS*/ 
+        document.querySelector('.column-container').addEventListener('dragend', (e) => {
+            if(e.target.classList.contains('card')) {
+
+                let name = e.target.querySelector('.description').innerHTML;
                 let id = e.target.id;
                 let column_id = e.target.parentElement.id;
-                let name = e.target.parentElement.querySelector('.description').innerHTML;
 
                 var data = {
                     'name': name,
@@ -63,10 +63,11 @@
                     return res.json();
                 })
                 .then(function(resp) {
-                   console.log('i już');
+                    console.log('Przeniesiono');
                 }); 
-        })
-        
+            }
+        });
+                
         /*FUNCTION FOR EDIT COLUMN NAME*/
         columnContainer.addEventListener('click', (e) => {
             

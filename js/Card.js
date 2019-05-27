@@ -6,6 +6,7 @@ class Card {
         this.table = table
         generateTemplate('card-template', { name: this.name, id: this.id},  this.table);
         this.randomBeltColor()
+        
     }
     
     /*FUNCTION RANDOMIZING BELT COLOR*/ 

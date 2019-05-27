@@ -25,7 +25,6 @@ function generateTemplate(name, data, basicElement) {
         return resp.json();
     })
     .then(function(resp) {
-        console.log(resp.columns);
         setupColumns(resp.columns);
     });
 
